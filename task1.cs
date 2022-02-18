@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace Task1
@@ -9,7 +9,7 @@ namespace Task1
         {
             string text = File.ReadAllText(@"WriteText.txt");
             int text_length = text.Length;
-            int topN = 5;
+            int topN = 300;
             int i = 0;
             string current_word = "";
             string[] words_arr = new string[1000000];
@@ -51,13 +51,19 @@ namespace Task1
             string[] words_only_once_arr = new string[1000000];
             int[] words_once_count_arr = new int[1000000];
 
+
+
+
+
             int amount_of_words = words_arr.Length;
             i = 0;
             int insertPos = 0;
+            bool shouldInsert = true;
             int j = 0;
             int dubs = 0;
             while_loop_count:
                 insertPos = 0;
+                shouldInsert = true;
                 int current_length = words_only_once_arr.Length;
                 j = 0;
                     
@@ -67,6 +73,7 @@ namespace Task1
                         if (words_only_once_arr[j] == words_arr[i])
                         {
                             insertPos = j;
+                            shouldInsert = false;
                             goto end_for_loop;
                             
                         }
@@ -74,7 +81,7 @@ namespace Task1
                         goto for_loop;
                     }
                 end_for_loop:
-                if (insertPos == 0)
+                if (shouldInsert)
                 {
                     words_only_once_arr[i - dubs] = words_arr[i];
                     words_once_count_arr[i - dubs] = 1;
@@ -87,12 +94,15 @@ namespace Task1
                 i++;
                 if (i < amount_of_words && words_arr[i]!=null)
                 {
+                    
                     goto while_loop_count;
                 }
             int length = words_once_count_arr.Length;
             j = 0;
             int inner_i = 0;
-            sort_loop:
+
+
+        sort_loop:
                 if(j < length && words_once_count_arr[j] != 0)
                 {
                     inner_i = 0;
